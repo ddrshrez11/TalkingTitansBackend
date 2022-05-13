@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use("/api", require("./routes/participantRoutes"));
+app.use("/", require("./routes/participantRoutes"));
 app.use("/api/participants", require("./routes/participantRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
