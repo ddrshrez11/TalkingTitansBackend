@@ -10,6 +10,41 @@ const getParticipants = asyncHandler(async (req, res) => {
   const participants = await Participant.find();
   res.status(200).json(participants);
 });
+const getAllParticipants = asyncHandler(async (req, res) => {
+  Participant.find({}, (err, participants) => {
+    var participantsMap = [];
+
+    participants.forEach(function (participant) {
+      participantsMap.push({
+        id: participant._id,
+        name: participant.name,
+        email: participant.email,
+        address: participant.address,
+        phone: participant.phone,
+        dob: participant.dob,
+        eduLevel: participant.eduLevel,
+        eduInstitution: participant.eduInstitution,
+        recommendedBy: participant.recommendedBy,
+      });
+    });
+    res.setHeader("Content-Range", participants.length);
+    res.send(participantsMap);
+  });
+});
+
+/**
+ * @desc Get one participants
+ * @route GET /api/:id
+ * @access Protected
+ */
+const getParticipant = asyncHandler(async (req, res) => {
+  Participant.findById({ _id: req.params.id }, function (err, participant) {
+    res.send({
+      id: participant._id,
+      ...participant._doc,
+    });
+  });
+});
 
 /**
  * @desc Add new participants
@@ -23,6 +58,13 @@ const newParticipant = asyncHandler(async (req, res) => {
   }
   const participant = await Participant.create({
     name: req.body.name,
+    email: req.body.email,
+    address: req.body.address,
+    phone: req.body.phone,
+    dob: req.body.dob,
+    eduInstitution: req.body.eduInstitution,
+    eduLevel: req.body.eduLevel,
+    recommendedBy: req.body.recommendedBy,
   });
   res.status(200).json(participant);
 });
@@ -57,7 +99,7 @@ const updateParticipant = asyncHandler(async (req, res) => {
     req.body,
     { new: true }
   );
-  res.status(200).json(updatedParticipant);
+  res.status(200).json({ id: participant._id, ...updatedParticipant });
 });
 
 /**
@@ -93,6 +135,8 @@ const deleteParticipant = asyncHandler(async (req, res) => {
 
 module.exports = {
   getParticipants,
+  getParticipant,
+  getAllParticipants,
   newParticipant,
   updateParticipant,
   deleteParticipant,
