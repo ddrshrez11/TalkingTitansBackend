@@ -4,9 +4,7 @@
   "description": "Talking Titans Backend",
   "main": "server.js",
   "scripts": {
-    "start": "netlify-lambda serve src",
-    "build": "netlify-lambda build src ",
-    "start:dev": "node backend/server.js",
+    "start": "node backend/server.js",
     "server": "nodemon backend/server.js"
   },
   "author": "Yunip Lal Shrestha",

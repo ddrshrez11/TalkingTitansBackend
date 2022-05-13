@@ -28,7 +28,7 @@ app.use("/api/users", require("./routes/userRoutes"));
 
 // app.use("./netlify/functions/api", require("./routes/participantRoutes"));
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
