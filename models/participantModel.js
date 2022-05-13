@@ -21,7 +21,7 @@ const participantSchema = mongoose.Schema(
 
     age: {
       type: String,
-      required: [true, "Please add a dob"],
+      required: [true, "Please add a age"],
     },
     eduLevel: {
       type: String,

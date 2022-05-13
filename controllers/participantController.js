@@ -21,10 +21,11 @@ const getAllParticipants = asyncHandler(async (req, res) => {
         email: participant.email,
         address: participant.address,
         phone: participant.phone,
-        dob: participant.dob,
+        age: participant.age,
         eduLevel: participant.eduLevel,
         eduInstitution: participant.eduInstitution,
-        recommendedBy: participant.recommendedBy,
+        participated: participant.participated,
+        language: participant.language,
       });
     });
     res.setHeader("Content-Range", participants.length);
