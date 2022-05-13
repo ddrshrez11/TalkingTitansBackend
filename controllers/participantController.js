@@ -39,10 +39,7 @@ const getAllParticipants = asyncHandler(async (req, res) => {
  */
 const getParticipant = asyncHandler(async (req, res) => {
   Participant.findById({ _id: req.params.id }, function (err, participant) {
-    res.send({
-      id: participant._id,
-      ...participant._doc,
-    });
+    res.send(participant);
   });
 });
 
