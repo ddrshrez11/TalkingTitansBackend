@@ -21,9 +21,9 @@ const getAllParticipants = asyncHandler(async (req, res) => {
         email: participant.email,
         address: participant.address,
         phone: participant.phone,
-        age: participant.age,
         eduLevel: participant.eduLevel,
         eduInstitution: participant.eduInstitution,
+        age: participant.age,
         participated: participant.participated,
         language: participant.language,
       });
@@ -59,10 +59,11 @@ const newParticipant = asyncHandler(async (req, res) => {
     email: req.body.email,
     address: req.body.address,
     phone: req.body.phone,
-    dob: req.body.dob,
     eduInstitution: req.body.eduInstitution,
     eduLevel: req.body.eduLevel,
-    recommendedBy: req.body.recommendedBy,
+    age: req.body.age,
+    participated: req.body.participated,
+    language: req.body.language,
   });
   res.status(200).json(participant);
 });
