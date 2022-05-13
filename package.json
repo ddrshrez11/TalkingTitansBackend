@@ -4,7 +4,9 @@
   "description": "Talking Titans Backend",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src ",
+    "start:dev": "node backend/server.js",
     "server": "nodemon backend/server.js"
   },
   "author": "Yunip Lal Shrestha",
@@ -17,7 +19,9 @@
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.2"
+    "mongoose": "^6.3.2",
+    "netlify-lambda": "^2.0.15",
+    "serverless-http": "^3.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
