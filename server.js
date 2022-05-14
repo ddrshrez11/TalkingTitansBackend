@@ -4,6 +4,7 @@ const colors = require("colors");
 const cors = require("cors");
 const { errorHandler } = require("./middlewares/errorMiddleware");
 const { connectDB } = require("./config/db");
+const nodemailer = require("nodemailer");
 const port = process.env.PORT || 5000;
 
 connectDB();

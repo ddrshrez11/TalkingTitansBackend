@@ -1,4 +1,5 @@
 const express = require("express");
+const { sendEmail } = require("../config/mail");
 const router = express.Router();
 const {
   getParticipants,
@@ -7,11 +8,13 @@ const {
   deleteParticipant,
   getAllParticipants,
   getParticipant,
+  sendmail,
 } = require("../controllers/participantController");
 const { protect } = require("../middlewares/authMiddleware");
 
 router.get("/all", protect, getParticipants);
 router.get("/", getAllParticipants);
+router.get("/send", sendmail);
 // router.get("/", getParticipants);
 
 router.post("/", newParticipant);

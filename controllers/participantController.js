@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Participant = require("../models/participantModel");
+const { sendEmail } = require("../config/mail");
 
 /**
  * @desc Get all participants
@@ -10,6 +11,23 @@ const getParticipants = asyncHandler(async (req, res) => {
   const participants = await Participant.find();
   res.status(200).json(participants);
 });
+
+const sendmail = asyncHandler(async (req, res) => {
+  const newData = {
+    name: "req.body.name",
+    email: "req.body.email",
+    address: "req.body.address",
+    phone: "req.body.phone",
+    eduInstitution: "req.body.eduInstitution",
+    eduLevel: "req.body.eduLevel",
+    age: "req.body.age",
+    participated: "req.body.participated",
+    language: "req.body.language",
+  };
+  const id = sendEmail(newData);
+  res.status(200).json(id);
+});
+
 const getAllParticipants = asyncHandler(async (req, res) => {
   Participant.find({}, (err, participants) => {
     var participantsMap = [];
@@ -54,7 +72,7 @@ const newParticipant = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add a Name field");
   }
-  const participant = await Participant.create({
+  const newData = {
     name: req.body.name,
     email: req.body.email,
     address: req.body.address,
@@ -64,7 +82,9 @@ const newParticipant = asyncHandler(async (req, res) => {
     age: req.body.age,
     participated: req.body.participated,
     language: req.body.language,
-  });
+  };
+  sendEmail(newData);
+  const participant = await Participant.create(newData);
   res.status(200).json(participant);
 });
 
@@ -139,4 +159,5 @@ module.exports = {
   newParticipant,
   updateParticipant,
   deleteParticipant,
+  sendmail,
 };

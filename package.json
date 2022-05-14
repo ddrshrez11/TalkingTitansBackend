@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
     "netlify-lambda": "^2.0.15",
+    "nodemailer": "^6.7.5",
     "serverless-http": "^3.0.1"
   },
   "devDependencies": {
