@@ -83,7 +83,7 @@ const newParticipant = asyncHandler(async (req, res) => {
     participated: req.body.participated,
     language: req.body.language,
   };
-  sendEmail(newData);
+  sendNewUserEmail(newData);
   const participant = await Participant.create(newData);
   res.status(200).json(participant);
 });
