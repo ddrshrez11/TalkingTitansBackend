@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const Participant = require("../models/participantModel");
-const { sendNewUserEmail } = require("../config/mail");
+const {
+  sendNewUserNotificationEmail,
+  sendTokenNumEmail,
+} = require("../config/mail");
 
 /**
  * @desc Get all participants
@@ -15,7 +18,7 @@ const getParticipants = asyncHandler(async (req, res) => {
 const sendmail = asyncHandler(async (req, res) => {
   const newData = {
     name: "req.body.name",
-    email: "req.body.email",
+    email: "yunipshrestha@gmail.com",
     address: "req.body.address",
     phone: "req.body.phone",
     eduInstitution: "req.body.eduInstitution",
@@ -24,8 +27,18 @@ const sendmail = asyncHandler(async (req, res) => {
     participated: "req.body.participated",
     language: "req.body.language",
   };
-  const id = sendNewUserEmail(newData);
-  res.status(200).json(id);
+  await Participant.find()
+    .sort({ p_id: -1 })
+    .limit(1)
+    .then((data) => {
+      newData.p_id = data[0].p_id + 1;
+      console.log(data[0].p_id);
+      console.log(newData);
+    });
+  const id = sendNewUserNotificationEmail(newData);
+  sendTokenNumEmail(newData);
+
+  res.status(200).json(newData);
 });
 
 const getAllParticipants = asyncHandler(async (req, res) => {
@@ -83,7 +96,18 @@ const newParticipant = asyncHandler(async (req, res) => {
     language: req.body.language,
     participated: req.body.participated,
   };
-  sendNewUserEmail(newData);
+  await Participant.find()
+    .sort({ p_id: -1 })
+    .limit(1)
+    .then((data) => {
+      newData["p_id"] = data[0].p_id + 1;
+      console.log(data[0].p_id);
+    });
+  if (newData.p_id === undefined) {
+    newData["p_id"] = 1111;
+  }
+  sendNewUserNotificationEmail(newData);
+  sendTokenNumEmail(newData);
   const participant = await Participant.create(newData);
   res.status(200).json(participant);
 });

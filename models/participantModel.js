@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const participantSchema = mongoose.Schema(
   {
+    p_id: {
+      type: Number,
+      required: [true, "Please provide Participant ID"],
+    },
     name: {
       type: String,
       required: [true, "Please add a Name"],
@@ -38,6 +42,14 @@ const participantSchema = mongoose.Schema(
     participated: {
       type: String,
       required: [true, "Please select an option"],
+    },
+    paid: {
+      type: Boolean,
+      default: false,
+    },
+    attendMentorship: {
+      type: Boolean,
+      default: false,
     },
   },
   {
