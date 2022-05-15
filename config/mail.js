@@ -21,12 +21,12 @@ const sendNewUserEmail = (newData) => {
     html: `
     <ul>
         <li>name: ${newData.name}</li>
-        <li>email: ${newData.email}</li>
         <li>address: ${newData.address}</li>
         <li>phone: ${newData.phone}</li>
-        <li>eduInstitution: ${newData.eduInstitution}</li>
-        <li>eduLevel: ${newData.eduLevel}</li>
+        <li>email: ${newData.email}</li>
         <li>age: ${newData.age}</li>
+        <li>eduLevel: ${newData.eduLevel}</li>
+        <li>eduInstitution: ${newData.eduInstitution}</li>
         <li>participated: ${newData.participated}</li>
         <li>language: ${newData.language}</li>  
     </ul>`,

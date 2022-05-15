@@ -74,16 +74,16 @@ const newParticipant = asyncHandler(async (req, res) => {
   }
   const newData = {
     name: req.body.name,
-    email: req.body.email,
     address: req.body.address,
     phone: req.body.phone,
-    eduInstitution: req.body.eduInstitution,
+    email: req.body.email,
     eduLevel: req.body.eduLevel,
     age: req.body.age,
-    participated: req.body.participated,
+    eduInstitution: req.body.eduInstitution,
     language: req.body.language,
+    participated: req.body.participated,
   };
-  sendEmail(newData);
+  sendNewUserEmail(newData);
   const participant = await Participant.create(newData);
   res.status(200).json(participant);
 });
