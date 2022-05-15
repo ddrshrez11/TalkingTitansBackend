@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Participant = require("../models/participantModel");
-const { sendEmail } = require("../config/mail");
+const { sendNewUserEmail } = require("../config/mail");
 
 /**
  * @desc Get all participants
@@ -24,7 +24,7 @@ const sendmail = asyncHandler(async (req, res) => {
     participated: "req.body.participated",
     language: "req.body.language",
   };
-  const id = sendEmail(newData);
+  const id = sendNewUserEmail(newData);
   res.status(200).json(id);
 });
 
