@@ -8,12 +8,8 @@ const contactEmail = {
     pass: process.env.SMTP_TO_PASSWORD,
   },
 };
-const toMail = [
-  "yunipshrestha@gmail.com",
-  "marketing@shardaproduction.com.np",
-  "jo.ashia00@gmail.com",
-  "sabindra.photographer@gmail.com",
-];
+const toMail =
+  "yunipshrestha@gmail.com,marketing@shardaproduction.com.np,jo.ashia00@gmail.com,sabindra.photographer@gmail.com";
 const sendNewUserEmail = (newData) => {
   let transporter = nodemailer.createTransport(contactEmail);
 
