@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const participantSchema = mongoose.Schema(
   {
-    p_id: {
+    pId: {
       type: Number,
       required: [true, "Please provide Participant ID"],
     },

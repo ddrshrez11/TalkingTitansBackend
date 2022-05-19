@@ -28,11 +28,11 @@ const sendmail = asyncHandler(async (req, res) => {
     language: "req.body.language",
   };
   await Participant.find()
-    .sort({ p_id: -1 })
+    .sort({ pId: -1 })
     .limit(1)
     .then((data) => {
-      newData.p_id = data[0].p_id + 1;
-      console.log(data[0].p_id);
+      newData.pId = data[0].pId + 1;
+      console.log(data[0].pId);
       console.log(newData);
     });
   const id = sendNewUserNotificationEmail(newData);
@@ -48,6 +48,7 @@ const getAllParticipants = asyncHandler(async (req, res) => {
     participants.forEach(function (participant) {
       participantsMap.push({
         id: participant._id,
+        pId: participant.pId,
         name: participant.name,
         email: participant.email,
         address: participant.address,
@@ -97,14 +98,14 @@ const newParticipant = asyncHandler(async (req, res) => {
     participated: req.body.participated,
   };
   await Participant.find()
-    .sort({ p_id: -1 })
+    .sort({ pId: -1 })
     .limit(1)
     .then((data) => {
-      newData["p_id"] = data[0].p_id + 1;
-      console.log(data[0].p_id);
+      newData["pId"] = data[0].pId + 1;
+      console.log(data[0].pId);
     });
-  if (newData.p_id === undefined) {
-    newData["p_id"] = 1111;
+  if (newData.pId === undefined) {
+    newData["pId"] = 1111;
   }
   sendNewUserNotificationEmail(newData);
   sendTokenNumEmail(newData);
