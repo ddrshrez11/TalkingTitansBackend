@@ -62,7 +62,7 @@ const getAllParticipants = asyncHandler(async (req, res) => {
     });
     // res.setHeader("Content-Range", "partipants 0-24/319");
     // res.setHeader("Content-Range", participants.length);
-    res.send(participantsMap);
+    res.json(participantsMap);
   });
 });
 
