@@ -20,6 +20,7 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.header("Access-Control-Expose-Headers", "X-Total-Count, Content-Range");
+  res.header("Content-Range", "posts 0-24/319");
   next();
 });
 
