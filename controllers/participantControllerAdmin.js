@@ -58,6 +58,8 @@ const getAllParticipants = asyncHandler(async (req, res) => {
         age: participant.age,
         participated: participant.participated,
         language: participant.language,
+        paid: participant.paid,
+        attendMentorship: participant.attendMentorship,
       });
     });
     // res.setHeader("Content-Range", "partipants 0-24/319");
