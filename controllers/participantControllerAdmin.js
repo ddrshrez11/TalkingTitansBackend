@@ -71,9 +71,9 @@ const getAllParticipants = asyncHandler(async (req, res) => {
  * @access Protected
  */
 const getParticipant = asyncHandler(async (req, res) => {
-  Participant.findById({ _id: req.params.id }, function (err, participant) {
-    res.send({ ...participant, id: req.params.id });
-  });
+  Participant.findById(req.params.id, function (err, participant) {
+    res.json({ ...participant, id: req.params.id });
+  }).lean();
 });
 
 /**
@@ -96,6 +96,8 @@ const newParticipant = asyncHandler(async (req, res) => {
     eduInstitution: req.body.eduInstitution,
     language: req.body.language,
     participated: req.body.participated,
+    paid: req.body.paid,
+    attendMentorship: req.body.attendMentorship,
   };
   await Participant.find()
     .sort({ pId: -1 })

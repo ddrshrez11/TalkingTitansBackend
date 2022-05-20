@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
 });
 
 app.use("/", require("./routes/participantRoutes"));
-app.use("/api/participants", require("./routes/participantRoutes"));
+app.use("/api/participants", require("./routes/participantRoutesAdmin"));
 app.use("/api/users", require("./routes/userRoutes"));
 
 // app.use("./netlify/functions/api", require("./routes/participantRoutes"));
