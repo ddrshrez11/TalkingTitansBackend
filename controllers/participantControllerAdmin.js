@@ -60,7 +60,8 @@ const getAllParticipants = asyncHandler(async (req, res) => {
         language: participant.language,
       });
     });
-    res.setHeader("Content-Range", participants.length);
+    res.setHeader("Content-Range", "partipants 0-24/319");
+    // res.setHeader("Content-Range", participants.length);
     res.send(participantsMap);
   });
 });
