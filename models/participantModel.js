@@ -51,6 +51,18 @@ const participantSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    entrySource: {
+      type: String,
+      default: "Website",
+    },
+    payment: {
+      type: String,
+      default: null,
+    },
+    remarks: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
