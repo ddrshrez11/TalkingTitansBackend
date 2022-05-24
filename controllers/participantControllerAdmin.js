@@ -60,6 +60,10 @@ const getAllParticipants = asyncHandler(async (req, res) => {
         language: participant.language,
         paid: participant.paid,
         attendMentorship: participant.attendMentorship,
+        createdAt: participant.createdAt,
+        entrySource: participant.entrySource,
+        payment: participant.payment,
+        remarks: participant.remarks,
       });
     });
     // res.setHeader("Content-Range", "partipants 0-24/319");
@@ -99,8 +103,11 @@ const newParticipant = asyncHandler(async (req, res) => {
     eduInstitution: req.body.eduInstitution,
     language: req.body.language,
     participated: req.body.participated,
-    paid: req.body.paid,
-    attendMentorship: req.body.attendMentorship,
+    paid: req.body.paid || false,
+    attendMentorship: req.body.attendMentorship || false,
+    entrySource: req.body.entrySource || undefined,
+    payment: req.body.payment || undefined,
+    remarks: req.body.remarks || undefined,
   };
   await Participant.find()
     .sort({ pId: -1 })
