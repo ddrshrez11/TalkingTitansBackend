@@ -6,7 +6,7 @@ const {
   deleteParticipant,
   getAllParticipants,
   getParticipant,
-} = require("../controllers/paymentMethod/khaltiController");
+} = require("../controllers/paymentMethod/unpaidController");
 
 router.get("/", getAllParticipants);
 router.post("/", newParticipant);
