@@ -1,5 +1,4 @@
 const express = require("express");
-const { sendEmail } = require("../config/mail");
 const router = express.Router();
 const {
   newParticipant,
@@ -8,11 +7,9 @@ const {
   getAllParticipants,
   getParticipant,
   sendmail,
-} = require("../controllers/participantControllerAdmin");
-const { protect } = require("../middlewares/authMiddleware");
+} = require("../controllers/paymentMethod/sbkhaltiController");
 
 router.get("/", getAllParticipants);
-router.get("/send", sendmail);
 router.post("/", newParticipant);
 router
   .route("/:id")

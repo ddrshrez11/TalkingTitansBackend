@@ -1,52 +1,16 @@
 const asyncHandler = require("express-async-handler");
-const Participant = require("../models/participantModel");
+const Participant = require("../../models/participantModel");
 const {
   sendNewUserNotificationEmail,
   sendTokenNumEmail,
-} = require("../config/mail");
-
-/**
- * @desc Get all participants
- * @route GET /api/all
- * @access Protected
- */
-const getParticipants = asyncHandler(async (req, res) => {
-  const participants = await Participant.find();
-  res.status(200).json(participants);
-});
-
-const sendmail = asyncHandler(async (req, res) => {
-  const newData = {
-    name: "req.body.name",
-    address: "req.body.address",
-    phone: "req.body.phone",
-    email: "yunipshrestha@gmail.com",
-    age: "req.body.age",
-    eduLevel: "req.body.eduLevel",
-    eduInstitution: "req.body.eduInstitution",
-    participated: "req.body.participated",
-    language: "req.body.language",
-  };
-  await Participant.find()
-    .sort({ pId: -1 })
-    .limit(1)
-    .then((data) => {
-      newData.pId = data[0].pId + 1;
-      console.log(data[0].pId);
-      console.log(newData);
-    });
-  const id = sendNewUserNotificationEmail(newData);
-  sendTokenNumEmail(newData);
-
-  res.status(200).json(newData);
-});
+} = require("../../config/mail");
 
 const getAllParticipants = asyncHandler(async (req, res) => {
   const sort_key = JSON.parse(req.query.sort);
   console.log("req query", req.query);
   let sort = {};
   sort[sort_key[0]] = sort_key[1].toLowerCase();
-  Participant.find()
+  Participant.find({ paid: true })
     .sort(sort)
     .exec((err, participants) => {
       var participantsMap = [];
@@ -142,20 +106,6 @@ const updateParticipant = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Participant not found");
   }
-  // ! TODO - only update if logged in
-  // const user = await User.findById(req.user.id);
-
-  // //check for user
-  // if (!user) {
-  //   res.status(401);
-  //   throw new Error("User not found.");
-  // }
-
-  // //make sure user in loggedin user matches p
-  // if (participant.user.toString() !== user.id) {
-  //   res.status(401);
-  //   throw new Error("User not authorized");
-  // }
   const updatedParticipant = await Participant.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -196,11 +146,9 @@ const deleteParticipant = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getParticipants,
   getParticipant,
   getAllParticipants,
   newParticipant,
   updateParticipant,
   deleteParticipant,
-  sendmail,
 };

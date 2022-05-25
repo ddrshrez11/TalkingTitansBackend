@@ -25,8 +25,14 @@ app.use(function (req, res, next) {
 });
 
 app.use("/", require("./routes/participantRoutes"));
-app.use("/api/participants", require("./routes/participantRoutesAdmin"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/participants", require("./routes/participantRoutesAdmin"));
+app.use("/api/khalti", require("./routes/khaltiRoutesAdmin"));
+app.use("/api/cash", require("./routes/cashRoutesAdmin"));
+app.use("/api/sbkhalti", require("./routes/sbkhaltiRoutesAdmin"));
+app.use("/api/sbesewa", require("./routes/sbesewaRoutesAdmin"));
+app.use("/api/paid", require("./routes/paidRoutesAdmin"));
+app.use("/api/unpaid", require("./routes/unpaidRoutesAdmin"));
 
 // app.use("./netlify/functions/api", require("./routes/participantRoutes"));
 
