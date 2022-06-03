@@ -7,39 +7,66 @@ const {
 
 const getAllParticipants = asyncHandler(async (req, res) => {
   const sort_key = JSON.parse(req.query.sort);
-  console.log("req query", req.query);
   let sort = {};
   sort[sort_key[0]] = sort_key[1].toLowerCase();
-  Participant.find({ payment: "Khalti" })
-    .sort(sort)
-    .exec((err, participants) => {
-      var participantsMap = [];
+  console.log("req.query", req.query);
+  const filter = JSON.parse(req.query.filter);
+  const range = JSON.parse(req.query.range);
+  let query = {};
+  if (filter["name"]) {
+    query = {
+      $or: [
+        // { pId: { $eq: filter["name"] } },
+        { name: { $regex: ".*" + filter["name"] + ".*", $options: "si" } },
+        // { phone: parseInt(filter["name"]) },
+        { phone: { $regex: ".*" + filter["name"] + ".*" } },
+        { email: { $regex: ".*" + filter["name"] + ".*", $options: "si" } },
+        {
+          eduInstitution: {
+            $regex: ".*" + filter["name"] + ".*",
+            $options: "si",
+          },
+        },
+      ],
+    };
+  }
 
-      participants.forEach(function (participant) {
-        participantsMap.push({
-          id: participant._id,
-          pId: participant.pId,
-          name: participant.name,
-          email: participant.email,
-          address: participant.address,
-          phone: participant.phone,
-          eduLevel: participant.eduLevel,
-          eduInstitution: participant.eduInstitution,
-          age: participant.age,
-          participated: participant.participated,
-          language: participant.language,
-          paid: participant.paid,
-          attendMentorship: participant.attendMentorship,
-          createdAt: participant.createdAt,
-          entrySource: participant.entrySource,
-          payment: participant.payment,
-          remarks: participant.remarks,
-        });
+  const participants = await Participant.find({ payment: "Khalti" }, query)
+    .sort(sort)
+    .limit(range[1] - range[0] + 1)
+    .skip(range[0]);
+  const participantCount = await Participant.find(
+    { payment: "Khalti" },
+    query
+  ).count();
+
+  var participantsMap = [];
+  if (participants) {
+    participants.forEach(function (participant) {
+      participantsMap.push({
+        id: participant._id,
+        pId: participant.pId,
+        name: participant.name,
+        email: participant.email,
+        address: participant.address,
+        phone: participant.phone,
+        eduLevel: participant.eduLevel,
+        eduInstitution: participant.eduInstitution,
+        age: participant.age,
+        participated: participant.participated,
+        language: participant.language,
+        paid: participant.paid,
+        attendMentorship: participant.attendMentorship,
+        createdAt: participant.createdAt,
+        entrySource: participant.entrySource,
+        payment: participant.payment,
+        remarks: participant.remarks,
       });
-      // res.setHeader("Content-Range", "partipants 0-24/319");
-      // res.setHeader("Content-Range", participants.length);
-      res.json(participantsMap);
     });
+  }
+  // res.setHeader("Content-Range", "partipants 0-24/319");
+  res.setHeader("Content-Range", participantCount);
+  res.json(participantsMap);
 });
 
 /**
